@@ -1,0 +1,7 @@
+<div *ngIf="transaction">
+    <h2>Détail de la transaction</h2>
+    <p>Date: {{ transaction.date | date:'shortDate' }}</p>
+    <p>Montant: {{ transaction.amount }}</p>
+    <p>Description: {{ transaction.description }}</p>
+  </div>
+  

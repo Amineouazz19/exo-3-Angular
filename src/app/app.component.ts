@@ -1,13 +1,32 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { routes } from './app.routes';
+import { CommonModule } from '@angular/common';
+import { TransactionListComponent } from './transaction-list/transaction-list.component';
+import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [
+    CommonModule,
+    TransactionListComponent,
+    TransactionDetailComponent,
+    HeaderComponent
+  ],
+  template: `
+    <app-root></app-root>
+  `,
+  styles: []
 })
 export class AppComponent {
-  title = 'banque-app';
+  currentDate: Date = new Date();
+
+  constructor() {
+    setInterval(() => {
+      this.currentDate = new Date();
+    }, 1000);
+  }
 }

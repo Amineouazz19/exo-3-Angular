@@ -1,0 +1,21 @@
+<table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Montant</th>
+        <th>Solde</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td>{{ transaction.id }}</td>
+        <td>{{ transaction.date | date:'medium' }}</td>
+        <td>{{ transaction.description }}</td>
+        <td>{{ transaction.amount | currency:'EUR' }}</td>
+        <td>{{ transaction.balance | currency:'EUR' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
