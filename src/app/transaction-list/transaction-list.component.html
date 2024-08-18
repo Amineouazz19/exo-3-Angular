@@ -1,21 +1,29 @@
-<table>
-    <thead>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<h1 class="text-center my-4">Liste des Transactions</h1>
+<div class="container">
+  <table class="table table-hover table-bordered">
+    <thead class="table-dark">
       <tr>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Montant</th>
-        <th>Solde</th>
+        <th (click)="sortTransactions('date')" style="cursor: pointer;">Date</th>
+        <th (click)="sortTransactions('label')" style="cursor: pointer;">Description</th>
+        <th (click)="sortTransactions('amount')" style="cursor: pointer;">Montant</th>
+        <th (click)="sortTransactions('balance')" style="cursor: pointer;">Solde</th>
+        <th>Détails</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let transaction of transactions">
-        <td>{{ transaction.id }}</td>
-        <td>{{ transaction.date | date:'medium' }}</td>
-        <td>{{ transaction.description }}</td>
-        <td>{{ transaction.amount | currency:'EUR' }}</td>
-        <td>{{ transaction.balance | currency:'EUR' }}</td>
+      <tr *ngFor="let transaction of transactions" (click)="selectTransaction(transaction)">
+        <td>{{ transaction.date | date }}</td>
+        <td>{{ transaction.label }}</td>
+        <td>{{ transaction.amount | currency }}</td>
+        <td>{{ transaction.balance | currency }}</td>
+        <td><a [routerLink]="['/transaction', transaction.id]" class="btn btn-info btn-sm">Voir détails</a></td>
       </tr>
     </tbody>
   </table>
-  
+</div>
+
+<footer class="text-center mt-4">
+  <p>&copy; 2024 Ma Banque - Tous droits réservés</p>
+</footer>

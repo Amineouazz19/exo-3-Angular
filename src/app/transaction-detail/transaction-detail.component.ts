@@ -6,17 +6,9 @@ import { ActivatedRoute } from "@angular/router";
 @Component({
   selector: 'app-transaction-detail',
   standalone: true,
-  imports: [CommonModule, TransactionDetailComponent],
-  template: `
-    <h1>Détails de la Transaction</h1>
-    <div *ngIf="transaction">
-      <p>Date: {{ transaction.date | date }}</p>
-      <p>Description: {{ transaction.description }}</p>
-      <p>Montant: {{ transaction.amount | currency }}</p>
-      <p>Solde: {{ transaction.balance | currency }}</p>
-    </div>
-  `,
-  styles: []
+  imports: [CommonModule],
+  templateUrl: './transaction-detail.component.html',
+  styleUrls: ['./transaction-detail.component.css']
 })
 export class TransactionDetailComponent implements OnInit {
   transaction: Transaction | undefined;

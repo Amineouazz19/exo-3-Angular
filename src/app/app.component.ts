@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
 import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
 import { HeaderComponent } from './header/header.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,19 +15,13 @@ import { HeaderComponent } from './header/header.component';
     CommonModule,
     TransactionListComponent,
     TransactionDetailComponent,
-    HeaderComponent
+    HeaderComponent,
+    RouterOutlet
   ],
-  template: `
-    <app-root></app-root>
-  `,
+  
   styles: []
 })
 export class AppComponent {
-  currentDate: Date = new Date();
+  title='Banque-app';
 
-  constructor() {
-    setInterval(() => {
-      this.currentDate = new Date();
-    }, 1000);
-  }
 }

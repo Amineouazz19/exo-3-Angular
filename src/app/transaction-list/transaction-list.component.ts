@@ -4,33 +4,18 @@ import { Transaction } from "../transaction.service";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { RouterOutlet } from "@angular/router";
 @Component({
   selector: 'app-transaction-list',
   standalone: true,
-  imports: [CommonModule,RouterModule,FormsModule],
-  template: `
-    <h1>Liste des Transactions</h1>
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Montant</th>
-        <th>Solde</th>
-        <th>Détails</th>
-      </tr>
-      <tr *ngFor="let transaction of transactions" (click)="selectTransaction(transaction)">
-        <td>{{ transaction.date | date }}</td>
-        <td>{{ transaction.label }}</td>
-        <td>{{ transaction.amount | currency }}</td>
-        <td>{{ transaction.balance | currency }}</td>
-        <td><a [routerLink]="['/transaction', transaction.id]">Voir Détails</a></td>
-      </tr>
-    </table>
-  `,
+  imports: [CommonModule,RouterModule,FormsModule,RouterOutlet],
+  templateUrl: './transaction-list.component.html',
   styles: []
 })
 export class TransactionListComponent implements OnInit {
   transactions: Transaction[] = [];
+  sortDirection: boolean = true; // true pour ascendant, false pour descendant
+  sortColumn: string = '';
 
   constructor(private transactionService: TransactionService) {}
 
@@ -43,4 +28,23 @@ export class TransactionListComponent implements OnInit {
   selectTransaction(transaction: Transaction) {
     console.log('Transaction sélectionnée:', transaction);
   }
+  sortTransactions(column: string) {
+    // Vérifier si on trie la même colonne pour inverser la direction du tri
+    if (this.sortColumn === column) {
+      this.sortDirection = !this.sortDirection;
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = true;
+    }
+
+    this.transactions.sort((a, b) => {
+      const valueA = a[column as keyof Transaction];
+      const valueB = b[column as keyof Transaction];
+
+      if (valueA < valueB) return this.sortDirection ? -1 : 1;
+      if (valueA > valueB) return this.sortDirection ? 1 : -1;
+      return 0;
+    });
+  }
+
 }
